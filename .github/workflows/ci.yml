@@ -9,6 +9,8 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     env:
       # tests/test_ui/*.py instantiate a QApplication at import time
       # (PySide6) — ubuntu-latest has no display server, so Qt aborts
@@ -27,6 +29,8 @@ jobs:
 
   frontend:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     defaults:
       run:
         working-directory: frontend
