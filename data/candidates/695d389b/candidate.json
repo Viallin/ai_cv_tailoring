@@ -1,0 +1,33 @@
+{
+  "name": "Jordan Rivers",
+  "headline": "Senior Consultant",
+  "summary": null,
+  "contacts": [],
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Agency Co",
+      "position": "Senior Consultant",
+      "period": "2019 - 2022",
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-1-proj-1",
+          "name": "Client A Migration",
+          "period": "2019 - 2020",
+          "achievements": [
+            "Designed and led the migration of a legacy billing system to a scalable, cloud-native platform, demonstrating hands-on building and a systems thinker approach to establish reusable architectural components for operational efficiency.",
+            "Implemented CI/CD pipelines as a reusable system, significantly reducing deployment time by half and codifying efficient, fast execution processes for consistent updates."
+          ]
+        }
+      ],
+      "is_gap": false
+    }
+  ],
+  "education": [],
+  "skills": [],
+  "languages": [],
+  "certifications": [],
+  "projects": []
+}

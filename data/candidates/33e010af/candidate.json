@@ -1,0 +1,399 @@
+{
+  "name": "Jamie Okafor",
+  "headline": "Senior/Lead Systems Designer, Product Manager",
+  "summary": "Senior/Lead Systems Designer with a track record of scaling systems and driving monetization in F2P games.\nImproved retention, ARPPU, and engagement through LiveOps, economy design, and experimentation.\nActed as feature and product owner in cross-functional teams, led delivery of high-impact features, and contributed to profitable product strategy.\nOpen to Senior / Lead Systems Designer and Product Manager roles.",
+  "employment_types_sought": [],
+  "contacts": [
+    {
+      "id": "contact-1",
+      "label": "Email",
+      "value": "jamie.okafor.example@example.com"
+    },
+    {
+      "id": "contact-2",
+      "label": "Phone",
+      "value": "+1-555-0100"
+    },
+    {
+      "id": "contact-3",
+      "label": "LinkedIn",
+      "value": "https://www.linkedin.com/in/jamie-okafor-example/"
+    },
+    {
+      "id": "contact-4",
+      "label": "Location",
+      "value": "Lisbon, Portugal"
+    },
+    {
+      "id": "contact-5",
+      "label": "Work Authorization",
+      "value": "no visa support required"
+    },
+    {
+      "id": "contact-6",
+      "label": "Portfolio",
+      "value": "https://www.example.com/portfolio/jokafor"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp-1",
+      "company": "Northwind Games",
+      "position": "Senior Systems Designer, Expedition and Meta",
+      "period": "Apr 2024 Apr 2026",
+      "location": null,
+      "responsibilities": [
+        "Owned an expedition events roadmap and execution"
+      ],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-1-proj-1",
+          "name": "Harborlight web",
+          "period": null,
+          "achievements": [
+            "Increased revenue from regional social platforms by 150% by introducing a new localized pricing strategy.",
+            "Designed and introduced a new offer type, resulting in a 5% increase in Expedition event conversion rate.",
+            "Designed and implemented scalable Expedition events and balance pipelines, creating reusable frameworks for live operations across the Harborlight web portfolio.",
+            "Maintained stable monetization KPIs for Expedition events, effectively managing trade-offs to ensure consistent performance.",
+            "Improved the Expedition event pipeline, cutting production time by one week while maintaining revenue.",
+            "Fostered skill growth within the design team by coaching colleagues through iterative design reviews, codifying reusable practices for portable features."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-2",
+      "company": "Northwind Games",
+      "position": "Parental leave",
+      "period": "Mar 2023 Mar 2024",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [],
+      "is_gap": true
+    },
+    {
+      "id": "exp-3",
+      "company": "Northwind Games",
+      "position": "Senior Systems Designer, Meta",
+      "period": "Aug 2022 Feb 2023",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-3-proj-1",
+          "name": "Meadowbrook Valley",
+          "period": null,
+          "achievements": [
+            "Expanded the farm meta from 30 to 180 days, aligning with long-term retention strategy.",
+            "Launched a new Expedition format (“Story Labyrinth”), including full design and configuration.",
+            "Improved operational efficiency by automating IAP submission across multiple app stores, demonstrating fast, smart execution without over-engineering.",
+            "Designed meta systems, balance pipelines, and LiveOps content."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-4",
+      "company": "Northwind Games",
+      "position": "Lead Systems Designer",
+      "period": "Jul 2021 Aug 2022",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-4-proj-1",
+          "name": "Riverbend",
+          "period": null,
+          "achievements": [
+            "Added a LiveOps and monetization layers prior to the hard launch, improving key retention metrics (R1/R7).",
+            "Collaborated with analytics to evaluate feature performance, using findings to iterate on monetization layers and retention drivers.",
+            "Used A/B testing to validate new monetization layers.",
+            "Mentored new designers and structured team workflows, fostering hands-on collaboration crucial for developing portable features."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-5",
+      "company": "Northwind Games",
+      "position": "Senior System Designer",
+      "period": "Jan 2020 Jul 2021",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "188681ba",
+          "name": "Riverbend",
+          "period": null,
+          "achievements": [
+            "Scaled the core economy system and designed new meta game systems from 3 days of content to 1–2 years of gameplay.",
+            "Conducted hypothesis-driven feature iterations.",
+            "Leveraged hands-on scripting to automate balance checks, increasing efficiency and scale through self-amplification of design processes.",
+            "Developed multiple meta systems driving long-term engagement and monetization."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-6",
+      "company": "Northwind Games",
+      "position": "Lead Systems Designer",
+      "period": "Feb 2016 Jan 2020",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-6-proj-1",
+          "name": "Harborlight Mobile2",
+          "period": null,
+          "achievements": [
+            "Introduced the Expeditions event, significantly increasing ARPPU.",
+            "Single-handedly adapted economy and balance for mobile, tuning for LTV and enabling successful global featuring, while carefully managing potential impacts on the older audience's trust.",
+            "Built and managed a 4-person design team.",
+            "Collaborated closely with the Harborlight Web team during the mobile transition, ensuring the development of portable and reusable features across platforms.",
+            "Led game design for the successful mobile adaptation of Harborlight, a key F2P title."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-7",
+      "company": "Northwind Games",
+      "position": "Lead Systems Designer",
+      "period": "Jan 2016 Feb 2017",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "exp-7-proj-1",
+          "name": "Harborlight web",
+          "period": null,
+          "achievements": [
+            "Introduced new LiveOps event types supporting KPI growth.",
+            "Mentored and expanded the design team to support production scaling.",
+            "Directed content roadmap and feature planning with a strong execution bias, contributing to product strategy."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-8",
+      "company": "Northwind Games",
+      "position": "Systems Designer",
+      "period": "Mar 2015 Jan 2016",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [],
+      "projects": [
+        {
+          "id": "3dfec17b",
+          "name": "Harborlight web",
+          "period": null,
+          "achievements": [
+            "Introduced a cooperative event that became the game's top monetizing event for several years.",
+            "Established reusable documentation standards to codify best practices, enabling team expansion and ensuring consistent quality and scalability.",
+            "Proactively identified and acted on opportunities to improve the product, demonstrating fast and smart execution with refinement."
+          ],
+          "responsibilities": []
+        }
+      ],
+      "is_gap": false
+    },
+    {
+      "id": "exp-9",
+      "company": "Cedarfall Studios",
+      "position": "Systems Designer/Lead Systems Designer",
+      "period": "Dec 2008 Mar 2015",
+      "location": null,
+      "responsibilities": [],
+      "achievements": [
+        "Worked on 10+ casual F2P HOPA titles for mobile publishers, contributing to a diverse game portfolio.",
+        "Applied strong systems thinking to design mechanics, balance, narrative content, and technical specs, working hands-on to build adventure games."
+      ],
+      "projects": [],
+      "is_gap": false
+    }
+  ],
+  "volunteer_experience": [],
+  "education": [
+    {
+      "id": "edu-1",
+      "institution": "Example State Technical University",
+      "degree": null,
+      "field": "Computer Software Engineering",
+      "period": "2005 - 2010"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill-1",
+      "name": "Roadmapping",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-2",
+      "name": "Team Management",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-3",
+      "name": "Mentoring",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-4",
+      "name": "Game Economy",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-5",
+      "name": "Game Monetization",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-6",
+      "name": "System Game Design",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-7",
+      "name": "Game Mechanics Design",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-8",
+      "name": "f2p Live-Ops",
+      "category": "Expertise",
+      "proficiency": null
+    },
+    {
+      "id": "skill-9",
+      "name": "UX Design",
+      "category": "Expertise",
+      "proficiency": null
+    }
+  ],
+  "technologies": [
+    {
+      "id": "6953ce7a",
+      "name": "Unity",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "2645a153",
+      "name": "Custom game engines",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "5d10bbf0",
+      "name": "Google Sheets/Excel",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "dbeb4e9b",
+      "name": "AppScript",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "b3bd6299",
+      "name": "Miro",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "98965e0a",
+      "name": "Confluence",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "fd2f4bbb",
+      "name": "AI Tools (productivity, automation)",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "9127ceee",
+      "name": "Figma",
+      "category": null,
+      "proficiency": null
+    },
+    {
+      "id": "30563527",
+      "name": "Microsoft Office / Google Workspace",
+      "category": null,
+      "proficiency": null
+    }
+  ],
+  "languages": [
+    {
+      "id": "lang-1",
+      "name": "English",
+      "proficiency": "C1"
+    },
+    {
+      "id": "lang-2",
+      "name": "Portuguese",
+      "proficiency": "native"
+    },
+    {
+      "id": "lang-3",
+      "name": "German",
+      "proficiency": "B1/B2"
+    }
+  ],
+  "certifications": [],
+  "awards": [],
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "Harborlight: web & mobile",
+      "description": "F2P casual titles, focusing on system design, LiveOps, progression, and monetization",
+      "url": null
+    },
+    {
+      "id": "proj-2",
+      "name": "Riverbend",
+      "description": "F2P casual titles, focusing on system design, LiveOps, progression, and monetization",
+      "url": null
+    },
+    {
+      "id": "proj-3",
+      "name": "Meadowbrook Valley",
+      "description": "F2P casual titles, focusing on system design, LiveOps, progression, and monetization",
+      "url": null
+    }
+  ],
+  "publications": [],
+  "portfolio_links": []
+}

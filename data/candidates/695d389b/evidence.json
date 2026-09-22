@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ev-1",
+    "text": "Migrated legacy billing system to a cloud-native platform.",
+    "source_context": "- Migrated legacy billing system to a cloud-native platform.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-2",
+    "text": "Cut deployment time in half by introducing CI/CD pipelines.",
+    "source_context": "- Cut deployment time in half by introducing CI/CD pipelines.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  }
+]

@@ -1,0 +1,344 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-heading: var(--font-sans);
+    --font-sans: 'Geist Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --radius: 0.625rem;
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
+  html {
+    @apply font-sans;
+    }
+}
+
+/* Phase 16a — A4 preview page + templates (cvTemplates.ts sets these
+   CSS vars via A4Page's data-template attribute). The page always
+   renders as white paper with dark text regardless of the app's own
+   light/dark theme, since it represents a printed document, not UI
+   chrome. On screen (the A4 Preview tab) this is one scrollable box; the
+   @media print block below strips that presentation for the actual print
+   target (frontend/src/components/PrintPreview.tsx), letting real page
+   breaks (Phase 16b) do the work instead. */
+.cv-a4-page {
+  /* Phase 28 (follow-up) — DocumentGutter.tsx renders as a child of this
+     element now (an `inset: 0` overlay, positioned into this page's own
+     blank left padding via negative `left` offsets — see
+     gutterLayout.ts's own docstring) rather than a separate column
+     outside it; this is what makes it a valid positioning context for
+     that. A no-op for PrintPreview.tsx (which never renders that child),
+     so nothing about the print/export path changes. */
+  position: relative;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 20mm 18mm;
+  background: white;
+  color: oklch(0.145 0 0);
+  box-shadow:
+    0 1px 3px rgb(0 0 0 / 0.15),
+    0 8px 24px rgb(0 0 0 / 0.12);
+  font-family: var(--cv-body-font, inherit);
+}
+
+.cv-a4-page h1,
+.cv-a4-page h2,
+.cv-a4-page h3 {
+  font-family: var(--cv-heading-font, inherit);
+  font-weight: var(--cv-heading-weight, 700);
+}
+
+.cv-a4-page > * + * {
+  margin-top: var(--cv-section-spacing, 1.5rem);
+}
+
+/* Post-29 fix — reported directly: the on-screen editor showed every
+   section packed flush against the next, with none of the real export's
+   own visible section-to-section spacing. Root cause: the rule above
+   only reaches `.cv-a4-page`'s own *direct* children — which is exactly
+   what every section is in PrintPreview.tsx (each `<PrintExperienceSection>`/
+   `<PrintSectionBlock>` renders straight into `<A4Page>`, no wrapper in
+   between) but not in the live editor, where Tiptap's `EditorContent`
+   inserts one `.tiptap.ProseMirror` contentEditable div between
+   `.cv-a4-page` and every actual `<section>` (SectionNodeView.tsx) —
+   making every section a *grandchild*, invisible to a `>` combinator
+   scoped one level up.
+   First attempt at this selector (`.tiptap > section + section`) turned
+   out to still match nothing — confirmed live: `.tiptap.ProseMirror`'s
+   own direct children are each one *more* level of Tiptap-internal
+   wrapper, `<div class="react-renderer node-section">` (auto-generated
+   from the ProseMirror node's own `name: "section"`, schema.ts), with
+   the real `<section>` nested one level inside *that* — a `<section>` is
+   a great-grandchild of `.cv-a4-page`, not a grandchild. Targets that
+   wrapper directly instead (same visual effect, margin on the wrapper
+   is indistinguishable from margin on the section it exists solely to
+   contain) — scoped the same one level deeper, rather than restructuring
+   the DOM to avoid needing it (ProseMirror requires that one content
+   div; see Phase 26's own docstring on why the editor's contentDOM can't
+   be `.cv-a4-page` itself). */
+.cv-a4-page .tiptap > .node-section + .node-section {
+  margin-top: var(--cv-section-spacing, 1.5rem);
+}
+
+/* Post-29 fix #3 — reported directly: the bullet-marker fix above (an
+   `aria-hidden` `<span>{bulletChar} </span>` sibling, added right before
+   `<NodeViewContent as="span">` in BulletNodeView.tsx/EntryHeadingNodeView.tsx)
+   rendered the marker alone on its own line, with the row's actual text
+   starting on the *next* line — not merely a wrapping-indent quirk, a
+   real block-level split. Root cause, found by inspecting the live
+   `outerHTML`: Tiptap's `NodeViewContent` always inserts its own inner
+   `<div data-node-view-content-react>` around the real text — regardless
+   of the outer tag its own `as` prop requests (`as="span"` here) — and a
+   bare `<div>` defaults to `display: block`. Invisible before this fix
+   (nothing else ever shared that line, so a block box spanning the same
+   width as an inline one looked identical); the moment a real inline
+   sibling appeared next to it, the mismatch surfaced. Confirmed a
+   stable, intentional Tiptap marker, not an implementation accident —
+   `@tiptap/react`'s own `ReactNodeViewRenderer.spec.ts` asserts against
+   this exact attribute. Scoped to `<p>` specifically (not `.cv-print-entry`,
+   which is EntryNodeView's own `<div>` and never has an inline sibling
+   to align with in the first place) — this only ever needs to reach the
+   two single-line, `as="p"` NodeViews (EntryHeadingNodeView/BulletNodeView),
+   not every NodeView's own content wrapper. */
+.cv-a4-page p [data-node-view-content-react] {
+  display: inline;
+}
+
+/* Reported directly: clicking into the CV editor drew a grey rounded
+   frame around the *entire* page, not just the row being edited — the
+   browser's own default focus outline on Tiptap's contentEditable root
+   (class "tiptap ProseMirror", the one editable region this whole page
+   is), which reads as a stray box around the printed document rather
+   than a useful focus indicator (the blinking text caret and the row's
+   own hover chrome already show where you are). Scoped to the editor's
+   own class, not a global `*:focus { outline: none }` — nothing else in
+   the app (buttons, inputs, checkboxes) should lose its own focus ring. */
+.cv-a4-page .tiptap:focus {
+  outline: none;
+}
+
+/* linkify.tsx turns emails/URLs inside Contacts/Portfolio Links/Key
+   Projects text into real <a> elements — style them like a standard
+   resume hyperlink (same blue as the DOCX export's own hyperlink runs,
+   see app/cv_docx.py's _add_hyperlink) rather than the app UI's own link
+   color, since this page represents a printed document. */
+.cv-a4-page a {
+  color: #0563c1;
+  text-decoration: underline;
+}
+
+/* Phase 16b — real pagination CSS. Originally written for Playwright's
+   page.pdf() (which applied @media print automatically); Version 4,
+   Phase 4.9 replaced that screenshot-based templated PDF export with a
+   browser-free reportlab renderer (app/cv_pdf.py) that has no CSS/@media
+   concept at all, so this block is no longer part of the actual export
+   path for any format. Left in place deliberately — it's still exactly
+   what fires if someone prints the on-screen A4 preview via the
+   browser's own Ctrl+P, a real (if incidental) affordance this class
+   already provided for free. */
+@page {
+  size: A4;
+  margin: 18mm 16mm;
+}
+
+@media print {
+  .cv-a4-page {
+    box-shadow: none;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0; /* @page's margin does this job instead */
+  }
+
+  /* Post-30 — reported directly, from a real export with a nearly-empty
+     trailing third of a page: `.cv-print-entry` used to be in this list
+     too, treating a *whole* Experience entry (role header + every one of
+     its bullets — PrintExperienceSection.tsx's own wrapping `<div>`) as
+     one indivisible block. A long entry that didn't fit the remaining
+     space on the current page moved *whole* to a fresh page rather than
+     splitting, even when it easily fit within one full page on its
+     own — the exact case that never falls back to per-bullet splitting
+     (that fallback only exists for a unit taller than a *whole* page —
+     see pageBreaks.ts's identical fallback), so the previous page's
+     remaining space just went to waste. Scoped to `p.cv-print-entry`
+     only now — PrintSectionBlock.tsx's own per-line entries (Education/
+     Skills/etc., genuinely one line each, never multi-child) — via the
+     tag selector alone, no new class needed: PrintExperienceSection.tsx's
+     wrapping element is a `<div>`, never a `<p>`, so this rule can't
+     accidentally re-widen back to it. */
+  p.cv-print-entry,
+  .cv-print-bullet {
+    break-inside: avoid;
+  }
+
+  /* Phase 16c — a section's <h2>/<h3> and its entries are flat siblings
+     (see PrintSectionBlock.tsx/PrintExperienceSection.tsx), with nothing
+     otherwise binding them together — without this, a page break could
+     legitimately land right after a heading, stranding it alone at the
+     bottom of a page while its entire body flows to the next one.
+     break-after: avoid-page keeps a heading with at least some of what
+     follows it instead. Deliberately NOT break-inside: avoid on <section>
+     itself — that would force an entire (possibly page-spanning) section
+     like Experience to jump as one atomic block rather than flowing
+     naturally across pages, which is the wrong fix for a long section.
+
+     Post-30 — the exact same reasoning, one level down: an Experience
+     entry's own role header (`div.cv-print-entry > p:first-child` —
+     always its first child, PrintExperienceSection.tsx) and a project-
+     subheading bullet (`.cv-print-subheading`, the same PrintExperienceSection.tsx/
+     BulletNodeView.tsx marker class pageBreaks.ts's measureUnits reads
+     for the on-screen guide) each get the identical treatment — glued
+     only to their own immediately-following line, not to their whole
+     entry's worth of bullets, replacing the `.cv-print-entry` break-
+     inside: avoid this same block used to lean on for that instead. */
+  .cv-a4-page h2,
+  .cv-a4-page h3,
+  div.cv-print-entry > p:first-child,
+  .cv-print-subheading {
+    break-after: avoid-page;
+  }
+
+  /* Small additional safeguard for any multi-line paragraph content (the
+     Summary section is the main one) — break-inside: avoid on
+     p.cv-print-entry/.cv-print-bullet already covers most of what this
+     would catch. */
+  .cv-a4-page {
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Phase 30 — manual pagination control, confirmed with the user
+     directly: the automatic break-after/break-inside rules above are
+     "hidden rules" a person can't see or override from the editor — the
+     only way to know where a page will actually break is to export and
+     look. This is the deliberate escape hatch, applied by
+     PrintExperienceSection.tsx/PrintSectionBlock.tsx to a `<section>`
+     or `.cv-print-entry`/category-header `<p>` whenever that section's
+     or entry's own `page_break_before` is true (SectionNodeView.tsx/
+     EntryNodeView.tsx's gutter toggle sets it). Unlike every other rule
+     in this block, this isn't an approximation of a printed-document
+     convention — it's a literal, unconditional instruction, which is
+     exactly why `break-before` (not `break-inside`/`break-after`) is the
+     right property: it forces a break immediately before this element
+     regardless of how much room is left on the current page. */
+  .cv-print-page-break-before {
+    break-before: page;
+  }
+}

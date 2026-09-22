@@ -1,0 +1,22 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.vscode/
+.pytest_cache/
+node_modules/
+
+# run_pipeline.py / the legacy ui's default I/O locations at repo root —
+# personal input/output, never fixtures.
+/resume.txt
+/vacancy.txt
+/cv_output.docx
+/cv_output_update.pdf
+
+# Phase 13 — local SQLite DB (data/cvai.db by default); the two committed
+# JSON profiles under data/candidates/ stay tracked as migration fixtures.
+data/*.db
+data/*.db-journal
+data/*.db.backup*
+# app/logging_setup.py's rotating log file — runtime output, not source.
+data/logs/

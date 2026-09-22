@@ -1,0 +1,275 @@
+[
+  {
+    "id": "ev-1",
+    "text": "Senior/Lead Systems Designer with a track record of scaling systems and driving monetization in F2P games.",
+    "source_context": "candidate.summary",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-2",
+    "text": "Improved retention, ARPPU, and engagement through LiveOps, economy design, and experimentation.",
+    "source_context": "candidate.summary",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-3",
+    "text": "Acted as feature and product owner in cross-functional teams, led delivery of high-impact features, and contributed to profitable product strategy.",
+    "source_context": "candidate.summary",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-4",
+    "text": "Open to Senior / Lead Systems Designer and Product Manager roles.",
+    "source_context": "candidate.summary",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-5",
+    "text": "Harborlight: web & mobile",
+    "source_context": "candidate.projects[proj-1]",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-6",
+    "text": "Riverbend",
+    "source_context": "candidate.projects[proj-2]",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-7",
+    "text": "Meadowbrook Valley",
+    "source_context": "candidate.projects[proj-3]",
+    "experience_id": null,
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-8",
+    "text": "Designed Expedition events and balance pipelines.",
+    "source_context": "Northwind Games, Harborlight web: Designed Expedition events and balance pipelines.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-9",
+    "text": "Improved the Expedition event pipeline, cutting production time by one week while maintaining revenue.",
+    "source_context": "Northwind Games, Harborlight web: Improved the Expedition event pipeline, cutting production time by one week while maintaining revenue.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-10",
+    "text": "Maintained stable monetization KPIs for Expedition events.",
+    "source_context": "Northwind Games, Harborlight web: Maintained stable monetization KPIs for Expedition events.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-11",
+    "text": "Increased revenue from regional social platforms by 150% by introducing a new localized pricing strategy.",
+    "source_context": "Northwind Games, Harborlight web: Increased revenue from regional social platforms by 150% by introducing a new localized pricing strategy.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-12",
+    "text": "Designed and introduced a new offer type, resulting in a 5% increase in Expedition event conversion rate.",
+    "source_context": "Northwind Games, Harborlight web: Designed and introduced a new offer type, resulting in a 5% increase in Expedition event conversion rate.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-13",
+    "text": "Supported skill growth within the design team by coaching colleagues on complex tasks through iterative design reviews and feedback.",
+    "source_context": "Northwind Games, Harborlight web: Supported skill growth within the design team by coaching colleagues on complex tasks through iterative design reviews and feedback.",
+    "experience_id": "exp-1",
+    "experience_project_id": "exp-1-proj-1"
+  },
+  {
+    "id": "ev-14",
+    "text": "Designed meta systems, balance pipelines, and LiveOps content.",
+    "source_context": "Northwind Games, Meadowbrook Valley: Designed meta systems, balance pipelines, and LiveOps content.",
+    "experience_id": "exp-3",
+    "experience_project_id": "exp-3-proj-1"
+  },
+  {
+    "id": "ev-15",
+    "text": "Expanded the farm meta from 30 to 180 days, aligning with long-term retention strategy",
+    "source_context": "Northwind Games, Meadowbrook Valley: Expanded the farm meta from 30 to 180 days, aligning with long-term retention strategy",
+    "experience_id": "exp-3",
+    "experience_project_id": "exp-3-proj-1"
+  },
+  {
+    "id": "ev-16",
+    "text": "Launched a new Expedition format (“Story Labyrinth”), including full design and configuration.",
+    "source_context": "Northwind Games, Meadowbrook Valley: Launched a new Expedition format (“Story Labyrinth”), including full design and configuration.",
+    "experience_id": "exp-3",
+    "experience_project_id": "exp-3-proj-1"
+  },
+  {
+    "id": "ev-17",
+    "text": "Improved operational efficiency by automating IAP submission across multiple app stores.",
+    "source_context": "Northwind Games, Meadowbrook Valley: Improved operational efficiency by automating IAP submission across multiple app stores.",
+    "experience_id": "exp-3",
+    "experience_project_id": "exp-3-proj-1"
+  },
+  {
+    "id": "ev-18",
+    "text": "Oversaw product direction, LiveOps and design team development.",
+    "source_context": "Northwind Games, Riverbend: Oversaw product direction, LiveOps and design team development.",
+    "experience_id": "exp-4",
+    "experience_project_id": "exp-4-proj-1"
+  },
+  {
+    "id": "ev-19",
+    "text": "Added a LiveOps and monetization layers prior to the hard launch, improving key retention metrics (R1/R7).",
+    "source_context": "Northwind Games, Riverbend: Added a LiveOps and monetization layers prior to the hard launch, improving key retention metrics (R1/R7).",
+    "experience_id": "exp-4",
+    "experience_project_id": "exp-4-proj-1"
+  },
+  {
+    "id": "ev-20",
+    "text": "Mentored new designers and structured the teams workflow.",
+    "source_context": "Northwind Games, Riverbend: Mentored new designers and structured the teams workflow.",
+    "experience_id": "exp-4",
+    "experience_project_id": "exp-4-proj-1"
+  },
+  {
+    "id": "ev-21",
+    "text": "Used A/B testing to validate new monetization layers.",
+    "source_context": "Northwind Games, Riverbend: Used A/B testing to validate new monetization layers.",
+    "experience_id": "exp-4",
+    "experience_project_id": "exp-4-proj-1"
+  },
+  {
+    "id": "ev-22",
+    "text": "Collaborated with analytics to evaluate feature performance, using findings to iterate on monetization layers and retention drivers.",
+    "source_context": "Northwind Games, Riverbend: Collaborated with analytics to evaluate feature performance, using findings to iterate on monetization layers and retention drivers.",
+    "experience_id": "exp-4",
+    "experience_project_id": "exp-4-proj-1"
+  },
+  {
+    "id": "ev-23",
+    "text": "Scaled the core economy system and designed new meta game systems from 3 days of content to 1–2 years of gameplay.",
+    "source_context": "Northwind Games, Senior System Designer: Scaled the core economy system and designed new meta game systems from 3 days of content to 1–2 years of gameplay.",
+    "experience_id": "exp-5",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-24",
+    "text": "Conducted hypothesis-driven feature iterations.",
+    "source_context": "Northwind Games, Senior System Designer: Conducted hypothesis-driven feature iterations.",
+    "experience_id": "exp-5",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-25",
+    "text": "Built scripts to automate balance checks.",
+    "source_context": "Northwind Games, Senior System Designer: Built scripts to automate balance checks.",
+    "experience_id": "exp-5",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-26",
+    "text": "Developed multiple meta systems driving long-term engagement and monetization.",
+    "source_context": "Northwind Games, Senior System Designer: Developed multiple meta systems driving long-term engagement and monetization.",
+    "experience_id": "exp-5",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-27",
+    "text": "Led game design for the mobile adaptation of Harborlight.",
+    "source_context": "Northwind Games, Harborlight Mobile: Led game design for the mobile adaptation of Harborlight.",
+    "experience_id": "exp-6",
+    "experience_project_id": "exp-6-proj-1"
+  },
+  {
+    "id": "ev-28",
+    "text": "Worked in parallel with the Harborlight Web team during the transition to mobile.",
+    "source_context": "Northwind Games, Harborlight Mobile: Worked in parallel with the Harborlight Web team during the transition to mobile.",
+    "experience_id": "exp-6",
+    "experience_project_id": "exp-6-proj-1"
+  },
+  {
+    "id": "ev-29",
+    "text": "Single-handedly adapted economy & balance for mobile, enabling a successful global featuring on the App Store homepage.",
+    "source_context": "Northwind Games, Harborlight Mobile: Single-handedly adapted economy & balance for mobile, enabling a successful global featuring on the App Store homepage.",
+    "experience_id": "exp-6",
+    "experience_project_id": "exp-6-proj-1"
+  },
+  {
+    "id": "ev-30",
+    "text": "Introduced the Expeditions event, significantly increasing ARPPU.",
+    "source_context": "Northwind Games, Harborlight Mobile: Introduced the Expeditions event, significantly increasing ARPPU.",
+    "experience_id": "exp-6",
+    "experience_project_id": "exp-6-proj-1"
+  },
+  {
+    "id": "ev-31",
+    "text": "Built and managed a 4-person design team.",
+    "source_context": "Northwind Games, Harborlight Mobile: Built and managed a 4-person design team.",
+    "experience_id": "exp-6",
+    "experience_project_id": "exp-6-proj-1"
+  },
+  {
+    "id": "ev-32",
+    "text": "Directed content roadmap and feature planning.",
+    "source_context": "Northwind Games, Harborlight web: Directed content roadmap and feature planning.",
+    "experience_id": "exp-7",
+    "experience_project_id": "exp-7-proj-1"
+  },
+  {
+    "id": "ev-33",
+    "text": "Introduced new LiveOps event types supporting KPI growth.",
+    "source_context": "Northwind Games, Harborlight web: Introduced new LiveOps event types supporting KPI growth.",
+    "experience_id": "exp-7",
+    "experience_project_id": "exp-7-proj-1"
+  },
+  {
+    "id": "ev-34",
+    "text": "Mentored and expanded the design team to support production scaling.",
+    "source_context": "Northwind Games, Harborlight web: Mentored and expanded the design team to support production scaling.",
+    "experience_id": "exp-7",
+    "experience_project_id": "exp-7-proj-1"
+  },
+  {
+    "id": "ev-35",
+    "text": "Delivered new documentation standards enabling team expansion.",
+    "source_context": "Northwind Games, Systems Designer: Delivered new documentation standards enabling team expansion.",
+    "experience_id": "exp-8",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-36",
+    "text": "Introduced a cooperative event that became the games top monetizing event for several years.",
+    "source_context": "Northwind Games, Systems Designer: Introduced a cooperative event that became the games top monetizing event for several years.",
+    "experience_id": "exp-8",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-37",
+    "text": "Proactively took on responsibilities beyond my role and identified opportunities to improve the product.",
+    "source_context": "Northwind Games, Systems Designer: Proactively took on responsibilities beyond my role and identified opportunities to improve the product.",
+    "experience_id": "exp-8",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-38",
+    "text": "Worked on 10+ HOPA titles for mobile publishers.",
+    "source_context": "Cedarfall Studios, Systems Designer/Lead Systems Designer: Worked on 10+ HOPA titles for mobile publishers.",
+    "experience_id": "exp-9",
+    "experience_project_id": null
+  },
+  {
+    "id": "ev-39",
+    "text": "Designed mechanics, balance, narrative content, and technical specs for adventure games.",
+    "source_context": "Cedarfall Studios, Systems Designer/Lead Systems Designer: Designed mechanics, balance, narrative content, and technical specs for adventure games.",
+    "experience_id": "exp-9",
+    "experience_project_id": null
+  }
+]
