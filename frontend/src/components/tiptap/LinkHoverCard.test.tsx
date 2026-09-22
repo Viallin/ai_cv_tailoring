@@ -17,14 +17,22 @@ import { linkHoverCardShouldShow } from "./LinkHoverCard";
 // and why `view.hasFocus()` is mocked true throughout except the one
 // isChildOfMenu-specific case.
 
+// Undestroyed Editors leave a ProseMirror DOMObserver poll scheduled via
+// setTimeout; if it fires after jsdom tears down between test files, it
+// throws "document is not defined" as an unhandled error and fails the
+// run despite every assertion passing. Track and destroy them below.
+const editors: Editor[] = [];
+
 function makeEditor(model: DocumentModel): Editor {
   // No DocumentGuards, same reasoning as FormattingBubbleMenu.test.tsx —
   // isolating this predicate's own logic from the separate
   // excludedSelectionGuardPlugin (Phase 26, already covered elsewhere).
-  return new Editor({
+  const editor = new Editor({
     extensions: [...DOCUMENT_NODE_EXTENSIONS, Text, Link.configure({ openOnClick: false, autolink: false })],
     content: documentModelToTiptapJSON(model),
   });
+  editors.push(editor);
+  return editor;
 }
 
 function findNode(doc: PMNode, predicate: (node: PMNode) => boolean): { node: PMNode; pos: number } {
@@ -89,6 +97,7 @@ function applyLinkTo(editor: Editor, nodeId: string, fromOffset: number, toOffse
 describe("linkHoverCardShouldShow", () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    editors.splice(0).forEach((editor) => editor.destroy());
   });
 
   it("shows for a collapsed cursor inside an existing link", () => {

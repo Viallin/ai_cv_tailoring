@@ -20,16 +20,24 @@ import { formattingBubbleMenuShouldShow } from "./FormattingBubbleMenu";
 // this file isn't testing focus handling itself (that's the
 // `isChildOfMenu` branch's job, exercised once explicitly below).
 
+// Undestroyed Editors leave a ProseMirror DOMObserver poll scheduled via
+// setTimeout; if it fires after jsdom tears down between test files, it
+// throws "document is not defined" as an unhandled error and fails the
+// run despite every assertion passing. Track and destroy them below.
+const editors: Editor[] = [];
+
 function makeEditor(model: DocumentModel): Editor {
   // Deliberately no DocumentGuards here — excludedSelectionGuardPlugin
   // would relocate a selection dispatched *into* excluded content before
   // this file's own excluded-entry test could ever observe it there;
   // that guard has its own coverage (Phase 26). This file is testing
   // formattingBubbleMenuShouldShow's own gating logic in isolation.
-  return new Editor({
+  const editor = new Editor({
     extensions: [...DOCUMENT_NODE_EXTENSIONS, Text, Bold],
     content: documentModelToTiptapJSON(model),
   });
+  editors.push(editor);
+  return editor;
 }
 
 function findNode(doc: PMNode, predicate: (node: PMNode) => boolean): { node: PMNode; pos: number } {
@@ -91,6 +99,7 @@ function paramsFor(editor: Editor) {
 describe("formattingBubbleMenuShouldShow", () => {
   afterEach(() => {
     vi.restoreAllMocks();
+    editors.splice(0).forEach((editor) => editor.destroy());
   });
 
   it("shows for a real (non-empty) selection in an ordinary entry", () => {
