@@ -1,7 +1,7 @@
 import { Editor } from "@tiptap/core";
 import { Text } from "@tiptap/extension-text";
 import type { Node as PMNode } from "@tiptap/pm/model";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import type { DocumentModel } from "@/lib/structuredDocument";
 import { documentModelToTiptapJSON } from "./converter";
@@ -11,8 +11,21 @@ import { DOCUMENT_NODE_EXTENSIONS } from "./schema";
 // Same headless-Editor technique as plugins.test.ts/commands.test.ts —
 // no DOM/layout needed, these are pure queries against the document
 // model.
+
+// Undestroyed Editors leave a ProseMirror DOMObserver poll scheduled via
+// setTimeout; if it fires after jsdom tears down between test files, it
+// throws "document is not defined" as an unhandled error and fails the
+// run despite every assertion passing. Track and destroy them below.
+const editors: Editor[] = [];
+
+afterEach(() => {
+  editors.splice(0).forEach((editor) => editor.destroy());
+});
+
 function makeEditor(model: DocumentModel): Editor {
-  return new Editor({ extensions: [...DOCUMENT_NODE_EXTENSIONS, Text], content: documentModelToTiptapJSON(model) });
+  const editor = new Editor({ extensions: [...DOCUMENT_NODE_EXTENSIONS, Text], content: documentModelToTiptapJSON(model) });
+  editors.push(editor);
+  return editor;
 }
 
 function findNode(doc: PMNode, predicate: (node: PMNode) => boolean): { node: PMNode; pos: number } {

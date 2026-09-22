@@ -6,7 +6,7 @@ import { Text } from "@tiptap/extension-text";
 import { Underline } from "@tiptap/extension-underline";
 import type { Node as PMNode } from "@tiptap/pm/model";
 import { TextSelection } from "@tiptap/pm/state";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it } from "vitest";
 
 import type { DocumentModel } from "@/lib/structuredDocument";
 import { documentModelToTiptapJSON, tiptapJSONToDocumentModel } from "./converter";
@@ -20,8 +20,18 @@ import { DOCUMENT_NODE_EXTENSIONS } from "./schema";
 // commands.test.ts already established for Enter/Backspace: no DOM
 // event synthesis, direct command calls and a hand-built selection.
 
+// Undestroyed Editors leave a ProseMirror DOMObserver poll scheduled via
+// setTimeout; if it fires after jsdom tears down between test files, it
+// throws "document is not defined" as an unhandled error and fails the
+// run despite every assertion passing. Track and destroy them below.
+const editors: Editor[] = [];
+
+afterEach(() => {
+  editors.splice(0).forEach((editor) => editor.destroy());
+});
+
 function makeEditor(model: DocumentModel): Editor {
-  return new Editor({
+  const editor = new Editor({
     extensions: [
       ...DOCUMENT_NODE_EXTENSIONS,
       Text,
@@ -33,6 +43,8 @@ function makeEditor(model: DocumentModel): Editor {
     ],
     content: documentModelToTiptapJSON(model),
   });
+  editors.push(editor);
+  return editor;
 }
 
 function findNode(doc: PMNode, predicate: (node: PMNode) => boolean): { node: PMNode; pos: number } {
