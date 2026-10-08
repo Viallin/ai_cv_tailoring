@@ -308,9 +308,9 @@ def test_gives_up_after_max_retries_on_persistently_degenerate_content(mocker):
 
 
 def test_omits_thinking_config_by_default(mocker):
-    # No thinking_budget passed -> config shouldn't carry a thinking_config
+    # No thinking_level passed -> config shouldn't carry a thinking_config
     # key at all, so the model's own default (AUTOMATIC/unbounded for
-    # gemini-2.5-flash) applies unchanged, same as before thinking_budget
+    # gemini-2.5-flash) applies unchanged, same as before thinking_level
     # existed as a parameter.
     provider = _make_provider(mocker)
     client = mocker.Mock()
@@ -323,21 +323,21 @@ def test_omits_thinking_config_by_default(mocker):
     assert "thinking_config" not in sent_config
 
 
-def test_passes_thinking_budget_through_to_the_api_call(mocker):
+def test_passes_thinking_level_through_to_the_api_call(mocker):
     provider = _make_provider(mocker)
     client = mocker.Mock()
     client.models.generate_content.return_value = _FakeResponse('{"value": "ok"}')
     mocker.patch.object(provider, "_get_client", return_value=client)
 
-    provider.generate_structured("prompt", _Schema, thinking_budget=0)
+    provider.generate_structured("prompt", _Schema, thinking_level="minimal")
 
     sent_config = client.models.generate_content.call_args.kwargs["config"]
-    assert sent_config["thinking_config"] == {"thinking_budget": 0}
+    assert sent_config["thinking_config"] == {"thinking_level": "minimal"}
 
 
 def test_falls_back_to_no_thinking_config_on_gemini_3x_rejection(mocker):
-    # Gemini 3.x models reject thinking_config.thinking_budget outright
-    # (they use thinking_level instead) with a bare 400 INVALID_ARGUMENT.
+    # Gemini 3.x models reject thinking_config.thinking_level outright
+    # (unsupported level) with a bare 400 INVALID_ARGUMENT.
     # The provider should retry the same call once without thinking_config
     # rather than surfacing that as a failure.
     provider = _make_provider(mocker)
@@ -347,7 +347,7 @@ def test_falls_back_to_no_thinking_config_on_gemini_3x_rejection(mocker):
     client.models.generate_content.side_effect = [rejection, _FakeResponse('{"value": "ok"}')]
     mocker.patch.object(provider, "_get_client", return_value=client)
 
-    result = provider.generate_structured("prompt", _Schema, thinking_budget=4096)
+    result = provider.generate_structured("prompt", _Schema, thinking_level="medium")
 
     assert result == _Schema(value="ok")
     assert client.models.generate_content.call_count == 2
@@ -366,12 +366,12 @@ def test_thinking_config_fallback_still_raises_if_second_attempt_also_fails(mock
     mocker.patch.object(provider, "_get_client", return_value=client)
 
     with pytest.raises(ProviderError):
-        provider.generate_structured("prompt", _Schema, thinking_budget=4096)
+        provider.generate_structured("prompt", _Schema, thinking_level="medium")
 
     assert client.models.generate_content.call_count == 2
 
 
-def test_400_without_thinking_budget_raises_immediately_without_fallback(mocker):
+def test_400_without_thinking_level_raises_immediately_without_fallback(mocker):
     # No thinking_config in the request at all -> nothing to drop, so a
     # 400 here is a real error and shouldn't trigger a second attempt.
     provider = _make_provider(mocker)

@@ -58,7 +58,7 @@ alongside prompt/response token counts) showed every one of the app's six
 calls spending more tokens on hidden "thinking" than on the actual visible
 response — up to 6x, on gemini-2.5-flash's default unbounded/AUTOMATIC
 thinking budget. `generate_structured()` now takes an optional
-`thinking_budget` (see ILLMProvider's docstring) that callers can use to
+`thinking_level` (see ILLMProvider's docstring) that callers can use to
 cap or disable this per call. app/use_cases.py disables it outright (`0`)
 for the two mechanical stages (JD Parsing, Quality Recheck) and caps it at
 a real but reduced budget for the two reasoning-heavy ones (Rewrite
@@ -117,9 +117,9 @@ def _is_retryable_error(exc: Exception) -> bool:
 
 def _is_thinking_config_rejection(exc: Exception) -> bool:
     """A bare 400 INVALID_ARGUMENT with no field-level detail — the shape
-    Gemini 3.x models return when sent `thinking_config.thinking_budget`
-    (an integer), which those models don't accept; they use `thinking_level`
-    (an enum) instead. Deliberately narrow (400 + INVALID_ARGUMENT only) so
+    Gemini returns when sent a `thinking_config.thinking_level` the model
+    doesn't support (e.g. a level outside that model's supported set, or an
+    older 2.5 model that only knows the deprecated integer `thinking_budget`). Deliberately narrow (400 + INVALID_ARGUMENT only) so
     an unrelated bad-request error (malformed schema, bad prompt) doesn't
     silently get retried without thinking_config and instead surfaces as
     the real error it is.
@@ -234,7 +234,7 @@ class GeminiProvider(ILLMProvider):
         prompt: str,
         response_schema: type[TSchema],
         stage: str,
-        thinking_budget: int | None,
+        thinking_level: str | None,
     ) -> tuple[object, int]:
         """Call the Gemini API, retrying transient failures with backoff.
 
@@ -253,8 +253,8 @@ class GeminiProvider(ILLMProvider):
         method still returns the raw SDK response; parsing/validating it
         against `response_schema` stays generate_structured()'s job.
 
-        `thinking_budget`, when not None, is passed through as
-        `config.thinking_config.thinking_budget` — see
+        `thinking_level`, when not None, is passed through as
+        `config.thinking_config.thinking_level` — see
         ILLMProvider.generate_structured's docstring for what it means.
         Left out of `config` entirely when None so a call that doesn't ask
         for a specific budget keeps the model's own default (AUTOMATIC/
@@ -268,8 +268,8 @@ class GeminiProvider(ILLMProvider):
                     "response_mime_type": "application/json",
                     "response_schema": response_schema,
                 }
-                if thinking_budget is not None:
-                    request_config["thinking_config"] = {"thinking_budget": thinking_budget}
+                if thinking_level is not None:
+                    request_config["thinking_config"] = {"thinking_level": thinking_level}
                 try:
                     response = client.models.generate_content(
                         model=self._model,
@@ -277,17 +277,11 @@ class GeminiProvider(ILLMProvider):
                         config=request_config,
                     )
                 except Exception as exc:  # noqa: BLE001 - inspected below, re-raised if not this case
-                    # Gemini 3.x models dropped the integer `thinking_budget`
-                    # knob in favor of a `thinking_level` enum (minimal/low/
-                    # medium/high) — sending thinking_config.thinking_budget
-                    # to one of these models is rejected outright with a bare
-                    # 400 INVALID_ARGUMENT (no field-level detail in the
-                    # message). Rather than guess a budget->level mapping for
-                    # every caller (app/use_cases.py's specific budget values
-                    # were tuned against gemini-2.5-flash via real-generation
-                    # comparisons — see that module's own comment — and
-                    # re-tuning for `thinking_level` needs the same rigor,
-                    # not a one-line guess), fall back to the model's own
+                    # Not every model supports every thinking_level
+                    # (minimal/low/medium/high) — an unsupported one is
+                    # rejected with a bare 400 INVALID_ARGUMENT (no
+                    # field-level detail in the message). Rather than fail
+                    # the whole call over a latency hint, fall back to the model's own
                     # default reasoning level by dropping thinking_config
                     # entirely and retrying this same attempt once. Only
                     # takes this path when thinking_config was actually in
@@ -297,14 +291,14 @@ class GeminiProvider(ILLMProvider):
                     if "thinking_config" in request_config and _is_thinking_config_rejection(exc):
                         logger.warning(
                             "Gemini API call failed | stage=%s | attempt=%d/%d "
-                            "| model=%s doesn't accept thinking_config.thinking_budget=%s "
-                            "(likely a Gemini 3.x model using thinking_level instead) "
+                            "| model=%s doesn't accept thinking_config.thinking_level=%s "
+                            "(unsupported level for this model) "
                             "— retrying without it, model's own default reasoning level applies: %s",
                             stage,
                             attempt,
                             self._max_retries + 1,
                             self._model,
-                            thinking_budget,
+                            thinking_level,
                             exc,
                         )
                         fallback_config = {
@@ -357,7 +351,7 @@ class GeminiProvider(ILLMProvider):
         attempt: int,
         transient_retries: int,
         elapsed_seconds: float,
-        thinking_budget: int | None,
+        thinking_level: str | None,
     ) -> None:
         """Logs one INFO line per successful `generate_structured()` call —
         stage, model, elapsed time, attempt/retry counts, token counts.
@@ -386,7 +380,7 @@ class GeminiProvider(ILLMProvider):
         logger.info(
             "Gemini call succeeded | stage=%s | model=%s | elapsed=%.2fs | "
             "attempt=%d/%d | regenerations=%d | transient_retries=%d | "
-            "thinking_budget=%s | prompt_tokens=%s | response_tokens=%s | "
+            "thinking_level=%s | prompt_tokens=%s | response_tokens=%s | "
             "thoughts_tokens=%s | total_tokens=%s",
             stage,
             self._model,
@@ -395,7 +389,7 @@ class GeminiProvider(ILLMProvider):
             self._max_retries + 1,
             attempt - 1,
             transient_retries,
-            "auto" if thinking_budget is None else thinking_budget,
+            "default" if thinking_level is None else thinking_level,
             getattr(usage, "prompt_token_count", None),
             getattr(usage, "candidates_token_count", None),
             getattr(usage, "thoughts_token_count", None),
@@ -406,7 +400,7 @@ class GeminiProvider(ILLMProvider):
         self,
         prompt: str,
         response_schema: type[TSchema],
-        thinking_budget: int | None = None,
+        thinking_level: str | None = None,
     ) -> TSchema:
         """Generate content and validate it against `response_schema`.
 
@@ -417,7 +411,7 @@ class GeminiProvider(ILLMProvider):
         network-error retry, and `_describe_json_parse_failure` for why the
         final ParsingError includes a snippet of the actual malformed text.
 
-        `thinking_budget` — see ILLMProvider.generate_structured's
+        `thinking_level` — see ILLMProvider.generate_structured's
         docstring; forwarded to every attempt (including regenerations) so
         a call that consistently blows the budget doesn't quietly fall back
         to unbounded thinking on retry.
@@ -430,7 +424,7 @@ class GeminiProvider(ILLMProvider):
         last_exc: ParsingError | ValidationError | None = None
         for attempt in range(1, self._max_retries + 2):  # +1 initial, +1 for range()
             response, transient_retries = self._generate_content_with_retry(
-                client, prompt, response_schema, stage, thinking_budget
+                client, prompt, response_schema, stage, thinking_level
             )
             transient_retries_total += transient_retries
             raw_text = response.text
@@ -456,7 +450,7 @@ class GeminiProvider(ILLMProvider):
                     else:
                         self._log_call_stats(
                             response, stage, attempt, transient_retries_total,
-                            time.perf_counter() - start, thinking_budget,
+                            time.perf_counter() - start, thinking_level,
                         )
                         return validated
 

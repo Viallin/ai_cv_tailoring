@@ -22,7 +22,7 @@ class ILLMProvider(ABC):
         self,
         prompt: str,
         response_schema: type[TSchema],
-        thinking_budget: int | None = None,
+        thinking_level: str | None = None,
     ) -> TSchema:
         """Send a prompt to the LLM and return output validated against response_schema.
 
@@ -35,15 +35,14 @@ class ILLMProvider(ABC):
         - interpret the meaning of the response
         - apply business logic
 
-        `thinking_budget` (added when logging in providers/gemini_provider.py
+        `thinking_level` (added when logging in providers/gemini_provider.py
         showed every one of the app's six LLM calls spending more tokens on
         hidden "thinking" than on the visible response — up to 6x, on a
         model whose default thinking budget is unbounded/automatic) is an
         optional, best-effort perf knob: `None` (the default) means "use
         whatever this provider/model defaults to," a non-negative int caps
-        it in tokens (0 disables thinking outright), matching
-        `google.genai.types.ThinkingConfig.thinking_budget`'s own
-        convention. A provider with no concept of "thinking" (or that
+        it to one of "minimal", "low", "medium" or "high" (supported levels
+        vary by model), matching Gemini's `thinking_config.thinking_level`. A provider with no concept of "thinking" (or that
         doesn't expose a budget knob) is free to ignore this rather than
         error — it's a latency lever the caller may suggest, never a
         contract the call depends on for correctness. See

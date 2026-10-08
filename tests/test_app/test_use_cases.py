@@ -50,12 +50,12 @@ class _FakeProvider:
         self.response = response
         self.last_prompt = None
         self.last_schema = None
-        self.last_thinking_budget = None
+        self.last_thinking_level = None
 
-    def generate_structured(self, prompt, response_schema, thinking_budget=None):
+    def generate_structured(self, prompt, response_schema, thinking_level=None):
         self.last_prompt = prompt
         self.last_schema = response_schema
-        self.last_thinking_budget = thinking_budget
+        self.last_thinking_level = thinking_level
         return self.response
 
 
@@ -174,7 +174,7 @@ def test_analyze_disables_thinking(tmp_path):
 
     service.analyze("some JD text")
 
-    assert provider.last_thinking_budget == 0
+    assert provider.last_thinking_level == "minimal"
 
 
 def test_analyze_defaults_title_and_company_to_none_when_not_found(tmp_path):
@@ -360,10 +360,10 @@ def test_plan_returns_the_providers_rewrite_plan(tmp_path):
     assert provider.last_schema is RewritePlanResponse
 
 
-def test_plan_uses_a_reduced_thinking_budget(tmp_path):
+def test_plan_uses_a_reduced_thinking_level(tmp_path):
     # See the module-level _REWRITE_PLANNING_THINKING_BUDGET comment in
     # app/use_cases.py — a more conservative first experiment than JD
-    # Parsing/Quality Recheck's outright thinking_budget=0.
+    # Parsing/Quality Recheck's outright thinking_level="minimal".
     provider = _FakeProvider(RewritePlanResponse(plan=RewritePlan()))
     service = RewritePlannerService(provider, make_rewrite_planner_prompt_loader(tmp_path))
 
@@ -376,7 +376,7 @@ def test_plan_uses_a_reduced_thinking_budget(tmp_path):
         )
     )
 
-    assert provider.last_thinking_budget == 4096
+    assert provider.last_thinking_level == "low"
 
 
 def test_plan_renders_prompt_with_experience_evidence_requirements_and_match_result(tmp_path):
@@ -447,7 +447,7 @@ def test_rewrite_returns_the_providers_cv_projection(tmp_path):
     assert provider.last_schema is RewriteBulletsResponse
 
 
-def test_rewrite_uses_its_own_intermediate_thinking_budget(tmp_path):
+def test_rewrite_uses_its_own_intermediate_thinking_level(tmp_path):
     # A higher, separate budget than Rewrite Planning's — see the
     # module-level _REWRITE_PLANNING_THINKING_BUDGET/
     # _BULLET_REWRITING_THINKING_BUDGET comment in app/use_cases.py for why
@@ -464,7 +464,7 @@ def test_rewrite_uses_its_own_intermediate_thinking_budget(tmp_path):
         )
     )
 
-    assert provider.last_thinking_budget == 8192
+    assert provider.last_thinking_level == "medium"
 
 
 def test_rewrite_renders_prompt_with_experience_evidence_requirements_and_plan(tmp_path):
@@ -655,7 +655,7 @@ def test_recheck_disables_thinking(tmp_path):
         )
     )
 
-    assert provider.last_thinking_budget == 0
+    assert provider.last_thinking_level == "minimal"
 
 
 def test_recheck_renders_prompt_with_the_cv_and_requirements(tmp_path):

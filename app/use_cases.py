@@ -33,11 +33,11 @@ from contracts.schemas import (
 from domain.models import Vacancy
 from providers.base import ILLMProvider
 
-# thinking_budget experiment, phase 2 (see ILLMProvider.generate_structured's
+# thinking_level experiment, phase 2 (see ILLMProvider.generate_structured's
 # and providers/gemini_provider.py's docstrings for the full backstory):
 # real generation logging showed JD Parsing/Quality Recheck spending more
 # tokens "thinking" than writing their actual (much shorter) output, so
-# those two got `thinking_budget=0` outright. Rewrite Planning/Bullet
+# those two got `thinking_level="minimal"` outright. Rewrite Planning/Bullet
 # Rewriting are the reasoning-heaviest stages instead — Bullet Rewriting's
 # own prompt (05_rewrite_bullets_v1.md) walks through seven separate
 # fabrication-failure variants it must actively check for — so a first,
@@ -65,8 +65,12 @@ from providers.base import ILLMProvider
 # cutting Bullet Rewriting's own time ~41% versus `auto`. Settled as of
 # that round — revisit with the same real-generation-comparison rigor,
 # not just a vibe check, before changing either value again.
-_REWRITE_PLANNING_THINKING_BUDGET = 4096
-_BULLET_REWRITING_THINKING_BUDGET = 8192
+_REWRITE_PLANNING_THINKING_LEVEL = "low"
+_BULLET_REWRITING_THINKING_LEVEL = "medium"
+# Migrated from integer thinking_budget (0 / 4096 / 8192) to thinking_level
+# per Google's deprecation notice: 0 -> "minimal", 4096 -> "low", 8192 -> "medium".
+# The mapping is approximate, not re-tuned — the history above refers to the
+# old budgets. Also, the old comment's "budget" wording means "level" now.
 
 
 class ResumeIngestionService:
@@ -97,7 +101,7 @@ class VacancyAnalysisService:
         `raw_text` is preserved verbatim from the input rather than trusting
         the LLM to reproduce it (see AnalyzeVacancyResponse's docstring).
 
-        Passes `thinking_budget=0` (see ILLMProvider.generate_structured's
+        Passes `thinking_level="minimal"` (see ILLMProvider.generate_structured's
         docstring) — this stage is a mostly-mechanical extraction of
         requirements/keywords already present in the vacancy text, not the
         open-ended reasoning Bullet Rewriting/Matching do, so it's one of
@@ -109,7 +113,7 @@ class VacancyAnalysisService:
         """
         prompt = self._prompts.render("02_jd_parser_v1.md", vacancy_text=raw_text)
         parsed = self._provider.generate_structured(
-            prompt, AnalyzeVacancyResponse, thinking_budget=0
+            prompt, AnalyzeVacancyResponse, thinking_level="minimal"
         )
         return Vacancy(
             title=parsed.title,
@@ -162,8 +166,8 @@ class RewritePlannerService:
         self._prompts = prompt_loader
 
     def plan(self, request: RewritePlanRequest) -> RewritePlanResponse:
-        # thinking_budget — see the module-level _REWRITE_PLANNING_THINKING_
-        # BUDGET/_BULLET_REWRITING_THINKING_BUDGET comment above for what
+        # thinking_level — see the module-level _REWRITE_PLANNING_THINKING_
+        # BUDGET/_BULLET_REWRITING_THINKING_LEVEL comment above for what
         # this experiment is and why they're two separate constants.
         tailorable_experience = [e for e in request.experience if not e.is_gap]
         prompt = self._prompts.render(
@@ -175,7 +179,7 @@ class RewritePlannerService:
             language=request.language,
         )
         return self._provider.generate_structured(
-            prompt, RewritePlanResponse, thinking_budget=_REWRITE_PLANNING_THINKING_BUDGET
+            prompt, RewritePlanResponse, thinking_level=_REWRITE_PLANNING_THINKING_LEVEL
         )
 
 
@@ -214,10 +218,10 @@ class BulletRewriteService:
             candidate_technologies_json=json.dumps(request.candidate_technologies),
             language=request.language,
         )
-        # thinking_budget — see the module-level _REWRITE_PLANNING_THINKING_
-        # BUDGET/_BULLET_REWRITING_THINKING_BUDGET comment above.
+        # thinking_level — see the module-level _REWRITE_PLANNING_THINKING_
+        # BUDGET/_BULLET_REWRITING_THINKING_LEVEL comment above.
         return self._provider.generate_structured(
-            prompt, RewriteBulletsResponse, thinking_budget=_BULLET_REWRITING_THINKING_BUDGET
+            prompt, RewriteBulletsResponse, thinking_level=_BULLET_REWRITING_THINKING_LEVEL
         )
 
 
@@ -237,7 +241,7 @@ class QualityRecheckService:
         self._prompts = prompt_loader
 
     def recheck(self, request: QualityRecheckRequest) -> QualityRecheckResponse:
-        # thinking_budget=0 — see VacancyAnalysisService.analyze's docstring
+        # thinking_level="minimal" — see VacancyAnalysisService.analyze's docstring
         # for the reasoning and the logging that motivated it; this stage
         # is a narrow, pattern-matching-shaped edit pass (trim
         # self-explaining tails) over text Bullet Rewriting already wrote,
@@ -251,7 +255,7 @@ class QualityRecheckService:
             language=request.language,
         )
         return self._provider.generate_structured(
-            prompt, QualityRecheckResponse, thinking_budget=0
+            prompt, QualityRecheckResponse, thinking_level="minimal"
         )
 
 
