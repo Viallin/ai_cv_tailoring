@@ -28,12 +28,12 @@ class FallbackProvider(ILLMProvider):
         self,
         prompt: str,
         response_schema: type[TSchema],
-        thinking_budget: int | None = None,
+        thinking_level: str | None = None,
     ) -> TSchema:
         last_exc: ProviderError | None = None
         for index, provider in enumerate(self._providers):
             try:
-                return provider.generate_structured(prompt, response_schema, thinking_budget)
+                return provider.generate_structured(prompt, response_schema, thinking_level)
             except ProviderError as exc:
                 last_exc = exc
                 attempts_left = len(self._providers) - index - 1

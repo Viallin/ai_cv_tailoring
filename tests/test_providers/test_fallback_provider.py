@@ -14,11 +14,11 @@ class _StubProvider:
         self._result = result
         self._error = error
         self.calls = 0
-        self.last_thinking_budget = None
+        self.last_thinking_level = None
 
-    def generate_structured(self, prompt, response_schema, thinking_budget=None):
+    def generate_structured(self, prompt, response_schema, thinking_level=None):
         self.calls += 1
-        self.last_thinking_budget = thinking_budget
+        self.last_thinking_level = thinking_level
         if self._error is not None:
             raise self._error
         return self._result
@@ -72,10 +72,10 @@ def test_does_not_fall_back_on_non_provider_errors():
     assert second.calls == 0
 
 
-def test_forwards_thinking_budget_to_the_underlying_provider():
+def test_forwards_thinking_level_to_the_underlying_provider():
     stub = _StubProvider(result=_Schema(value="ok"))
     provider = FallbackProvider([stub])
 
-    provider.generate_structured("prompt", _Schema, thinking_budget=0)
+    provider.generate_structured("prompt", _Schema, thinking_level="minimal")
 
-    assert stub.last_thinking_budget == 0
+    assert stub.last_thinking_level == "minimal"

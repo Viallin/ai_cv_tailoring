@@ -44,7 +44,7 @@ class _FakeProvider(ILLMProvider):
         self,
         prompt: str,
         response_schema: type[BaseModel],
-        thinking_budget: int | None = None,
+        thinking_level: str | None = None,
     ) -> BaseModel:
         raise NotImplementedError
 

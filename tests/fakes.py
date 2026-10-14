@@ -21,7 +21,7 @@ class QueuedFakeProvider(ILLMProvider):
     def __init__(self, responses=()):
         self._responses = list(responses)
         self.calls: list[type] = []
-        self.thinking_budgets: list[int | None] = []
+        self.thinking_levels: list[str | None] = []
         # The exact rendered prompt text of the most recent call — lets a
         # test assert on what actually reached the LLM (e.g. that a
         # document-level override made it into the prompt) without needing
@@ -31,13 +31,13 @@ class QueuedFakeProvider(ILLMProvider):
     def queue(self, response) -> None:
         self._responses.append(response)
 
-    def generate_structured(self, prompt, response_schema, thinking_budget=None):
+    def generate_structured(self, prompt, response_schema, thinking_level=None):
         assert self._responses, "no more queued responses"
         response = self._responses.pop(0)
         assert isinstance(response, response_schema), (
             f"expected {response_schema.__name__}, queued {type(response).__name__}"
         )
         self.calls.append(response_schema)
-        self.thinking_budgets.append(thinking_budget)
+        self.thinking_levels.append(thinking_level)
         self.last_prompt = prompt
         return response
