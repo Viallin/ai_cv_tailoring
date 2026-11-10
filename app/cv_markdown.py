@@ -79,7 +79,10 @@ def render_portfolio_links_section(cv: AssembledCV) -> str:
     projects_section`. See domain.models.PortfolioLink's docstring."""
     lines = []
     for link in cv.portfolio_links:
-        entry = f"{link.description} — {link.url}" if link.description else link.url
+        if link.compact_link and link.description:
+            entry = f"[{link.description}]({link.url})"
+        else:
+            entry = f"{link.description} — {link.url}" if link.description else link.url
         lines.append(f"- {entry}")
     return "\n".join(lines)
 
@@ -89,11 +92,12 @@ def render_publications_section(cv: AssembledCV) -> str:
     render_projects_section, which this otherwise mirrors."""
     lines = []
     for pub in cv.publications:
-        entry = f"**{pub.title}**"
+        compact = pub.compact_link and bool(pub.url)
+        entry = f"**[{pub.title}]({pub.url})**" if compact else f"**{pub.title}**"
         details = ", ".join(bit for bit in (pub.venue, pub.date) if bit)
         if details:
             entry += f" — {details}"
-        if pub.url:
+        if pub.url and not compact:
             entry += f" ({pub.url})"
         lines.append(f"- {entry}")
     return "\n".join(lines)

@@ -31,6 +31,7 @@ from sqlalchemy import Engine, delete
 from sqlmodel import Session, select
 
 from app.errors import ValidationError
+from app.period_order import insertion_index
 from db.models import CandidateRow, CVDraftRow, EvidenceRow
 from db.session import session_scope
 from domain.models import (
@@ -449,7 +450,11 @@ class CandidateService:
             achievements=list(achievements or []),
             is_gap=is_gap,
         )
-        candidate.experience.append(entry)
+        # Experience is kept newest-first; `period` is free text, so place the
+        # new entry by its parsed date rather than blindly appending.
+        candidate.experience.insert(
+            insertion_index([e.period for e in candidate.experience], period), entry
+        )
         self._save(candidate)
         if entry.responsibilities or entry.achievements:
             with session_scope(self._engine) as session:
@@ -883,12 +888,14 @@ class CandidateService:
         venue: str | None = None,
         date: str | None = None,
         url: str | None = None,
+        compact_link: bool = False,
     ) -> Publication:
         candidate = self._require_existing()
         if not title or not title.strip():
             raise ValidationError("Publication title must not be empty.")
 
-        entry = Publication(id=_new_id(), title=title, venue=venue, date=date, url=url)
+        entry = Publication(id=_new_id(), title=title, venue=venue, date=date, url=url, compact_link=compact_link
+        )
         candidate.publications.append(entry)
         self._save(candidate)
         return entry
@@ -909,12 +916,16 @@ class CandidateService:
 
     # ----- Portfolio Link CRUD -------------------------------------------
 
-    def add_portfolio_link(self, url: str, description: str | None = None) -> PortfolioLink:
+    def add_portfolio_link(
+        self, url: str, description: str | None = None, compact_link: bool = False
+    ) -> PortfolioLink:
         candidate = self._require_existing()
         if not url or not url.strip():
             raise ValidationError("Portfolio link URL must not be empty.")
 
-        entry = PortfolioLink(id=_new_id(), url=url, description=description)
+        entry = PortfolioLink(
+            id=_new_id(), url=url, description=description, compact_link=compact_link
+        )
         candidate.portfolio_links.append(entry)
         self._save(candidate)
         return entry

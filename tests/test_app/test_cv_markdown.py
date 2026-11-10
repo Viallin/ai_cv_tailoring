@@ -1363,3 +1363,27 @@ class TestRenderSectionsFromDocument:
         assert render_sections_from_document(document)["skills"] == (
             "- Mentoring\n- **Design**: Roadmapping"
         )
+
+
+def test_render_portfolio_links_section_compact_link_hyperlinks_description():
+    cv = make_cv(
+        portfolio_links=[
+            PortfolioLink(id="l1", url="https://a.com", description="Case studies", compact_link=True),
+            PortfolioLink(id="l2", url="https://b.com", compact_link=True),
+        ]
+    )
+
+    assert render_portfolio_links_section(cv) == "- [Case studies](https://a.com)\n- https://b.com"
+
+
+def test_render_publications_section_compact_link_hyperlinks_title():
+    from app.cv_markdown import render_publications_section
+    from domain.models import Publication
+
+    cv = make_cv(
+        publications=[
+            Publication(id="p", title="Paper", venue="PyData", date="2023", url="https://p.com", compact_link=True)
+        ]
+    )
+
+    assert render_publications_section(cv) == "- **[Paper](https://p.com)** — PyData, 2023"

@@ -545,8 +545,41 @@ function buildListSection(cv: AssembledCV, key: string, titles: Record<string, s
     id: item.id,
     text: summarize ? summarize(item) : "",
     included: true,
+    ...compactLinkRuns(key, item),
   }));
   return { key, title: titles[key], included: true, entries };
+}
+
+// Portfolio Links / Publications can opt (per item, in the profile editor)
+// into a compact layout where the description/title is itself the hyperlink
+// and the URL isn't printed. `runs` is authoritative over `text`, so this is
+// what the preview and every export render; `text` is kept as the fallback.
+// Mirrors app/cv_markdown.py's render_portfolio_links_section /
+// render_publications_section.
+function compactLinkRuns(key: string, item: object): { text: string; runs: TextRun[] } | Record<string, never> {
+  const link = item as {
+    url?: string | null;
+    description?: string | null;
+    title?: string;
+    venue?: string | null;
+    date?: string | null;
+    compact_link?: boolean;
+  };
+  if (!link.compact_link || !link.url) {
+    return {};
+  }
+  if (key === "portfolio_links" && link.description) {
+    return { text: link.description, runs: [{ text: link.description, link: link.url }] };
+  }
+  if (key === "publications" && link.title) {
+    const details = [link.venue, link.date].filter(Boolean).join(", ");
+    const runs: TextRun[] = [{ text: link.title, link: link.url }];
+    if (details) {
+      runs.push({ text: ` — ${details}` });
+    }
+    return { text: `${link.title}${details ? ` — ${details}` : ""}`, runs };
+  }
+  return {};
 }
 
 export function buildDocumentFromAssembledCv(cv: AssembledCV): DocumentModel {

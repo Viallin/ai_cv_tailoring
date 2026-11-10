@@ -549,6 +549,12 @@ output — only tailored headline/summary/bullets/skills/technologies.
   `project` to the name of the matching `ExperienceProject` (looked up in
   that Experience entry's `projects` list) if the Evidence's
   `experience_project_id` points at one; otherwise omit/null `project`.
+  Bullets with no `project` render *above* all of that role's project
+  groups (a project-less bullet can't sit among project bullets without
+  looking like it belongs to one). In a role that has project bullets, a
+  project-less bullet is a generic summary line: keep it only if it adds
+  something the project bullets don't and the vacancy needs it; if it is
+  less relevant than the project bullets, mark it `"remove"` instead.
   Set `evidence_id` to the exact `id` of the Evidence item this bullet was
   produced from (copy verbatim, never invent one) — there is always
   exactly one bullet per included Evidence item, so this is a direct 1:1
