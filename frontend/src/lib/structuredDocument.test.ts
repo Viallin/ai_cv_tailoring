@@ -688,3 +688,22 @@ describe("collectDocumentSkillNames", () => {
     expect(collectDocumentSkillNames(legacyShape, "skills")).toEqual(["Roadmapping", "UX Design"]);
   });
 });
+
+describe("compact portfolio/publication links", () => {
+  it("makes the description / title the hyperlink only when compact_link is set", () => {
+    const cv = {
+      language: "en",
+      portfolio_links: [
+        { id: "a", url: "https://a.com", description: "Case studies", compact_link: true },
+        { id: "b", url: "https://b.com", description: "Games", compact_link: false },
+      ],
+      publications: [{ id: "p", title: "Paper", venue: "PyData", date: "2023", url: "https://p.com", compact_link: true }],
+    } as unknown as Parameters<typeof buildDocumentFromAssembledCv>[0];
+    const doc = buildDocumentFromAssembledCv(cv);
+    const portfolio = doc.sections.find((s) => s.key === "portfolio_links")!.entries;
+    expect(portfolio[0].runs).toEqual([{ text: "Case studies", link: "https://a.com" }]);
+    expect(portfolio[1].runs).toBeUndefined();
+    const pub = doc.sections.find((s) => s.key === "publications")!.entries[0];
+    expect(pub.runs).toEqual([{ text: "Paper", link: "https://p.com" }, { text: " — PyData, 2023" }]);
+  });
+});

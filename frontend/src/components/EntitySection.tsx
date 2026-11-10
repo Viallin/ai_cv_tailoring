@@ -48,6 +48,9 @@ function itemToFormValues(config: EntityConfig, item: EntityItem): FormValues {
   return Object.fromEntries(
     config.fields.map((field) => {
       const value = item[field.name];
+      if (field.checkbox) {
+        return [field.name, value ? "true" : ""];
+      }
       return [field.name, value == null ? "" : String(value)];
     }),
   );
@@ -65,6 +68,10 @@ function hasChanges(config: EntityConfig, item: EntityItem, values: FormValues):
 function toRequestBody(config: EntityConfig, values: FormValues): Record<string, unknown> {
   const body: Record<string, unknown> = {};
   config.fields.forEach((field, index) => {
+    if (field.checkbox) {
+      body[field.name] = values[field.name] === "true";
+      return;
+    }
     const raw = (values[field.name] ?? "").trim();
     body[field.name] = index === 0 ? raw : raw === "" ? null : raw;
   });
@@ -752,31 +759,60 @@ function EntityFieldsOnly({ config, itemId, values, onChange, disabled }: Entity
     <div className="flex-1 space-y-2">
       {config.fields.map((field) => (
         <div key={field.name} className="space-y-1">
-          <label
-            htmlFor={`${config.pathSegment}-${itemId}-${field.name}`}
-            className="text-xs font-medium text-muted-foreground"
-          >
-            {field.label}
-          </label>
-          {field.multiline ? (
-            <Textarea
-              id={`${config.pathSegment}-${itemId}-${field.name}`}
-              value={values[field.name] ?? ""}
-              onChange={(event) => onChange(field.name, event.target.value)}
-              disabled={disabled}
-              rows={3}
-            />
-          ) : (
-            <Input
-              id={`${config.pathSegment}-${itemId}-${field.name}`}
-              value={values[field.name] ?? ""}
-              onChange={(event) => onChange(field.name, event.target.value)}
-              disabled={disabled}
-            />
+          {!field.checkbox && (
+            <label
+              htmlFor={`${config.pathSegment}-${itemId}-${field.name}`}
+              className="text-xs font-medium text-muted-foreground"
+            >
+              {field.label}
+            </label>
           )}
+          <FieldInput
+            field={field}
+            id={`${config.pathSegment}-${itemId}-${field.name}`}
+            value={values[field.name] ?? ""}
+            onChange={(value) => onChange(field.name, value)}
+            disabled={disabled}
+          />
         </div>
       ))}
     </div>
+  );
+}
+
+// One field's input: checkbox / textarea / text. Shared by the add form and
+// the per-row editor so a new field type only needs handling once.
+function FieldInput({
+  field,
+  id,
+  value,
+  onChange,
+  disabled,
+}: {
+  field: EntityConfig["fields"][number];
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  disabled?: boolean;
+}) {
+  if (field.checkbox) {
+    return (
+      <label htmlFor={id} className="flex items-center gap-2 text-xs text-muted-foreground">
+        <input
+          id={id}
+          type="checkbox"
+          checked={value === "true"}
+          onChange={(event) => onChange(event.target.checked ? "true" : "")}
+          disabled={disabled}
+        />
+        {field.label}
+      </label>
+    );
+  }
+  return field.multiline ? (
+    <Textarea id={id} value={value} onChange={(event) => onChange(event.target.value)} disabled={disabled} rows={3} />
+  ) : (
+    <Input id={id} value={value} onChange={(event) => onChange(event.target.value)} disabled={disabled} />
   );
 }
 
@@ -796,23 +832,17 @@ function EntityForm({ config, values, onChange, onSave, onCancel, saving }: Enti
     <div className="space-y-2 rounded-lg border p-2">
       {config.fields.map((field) => (
         <div key={field.name} className="space-y-1">
-          <label htmlFor={`${config.pathSegment}-new-${field.name}`} className="text-xs font-medium text-muted-foreground">
-            {field.label}
-          </label>
-          {field.multiline ? (
-            <Textarea
-              id={`${config.pathSegment}-new-${field.name}`}
-              value={values[field.name] ?? ""}
-              onChange={(event) => onChange(field.name, event.target.value)}
-              rows={3}
-            />
-          ) : (
-            <Input
-              id={`${config.pathSegment}-new-${field.name}`}
-              value={values[field.name] ?? ""}
-              onChange={(event) => onChange(field.name, event.target.value)}
-            />
+          {!field.checkbox && (
+            <label htmlFor={`${config.pathSegment}-new-${field.name}`} className="text-xs font-medium text-muted-foreground">
+              {field.label}
+            </label>
           )}
+          <FieldInput
+            field={field}
+            id={`${config.pathSegment}-new-${field.name}`}
+            value={values[field.name] ?? ""}
+            onChange={(value) => onChange(field.name, value)}
+          />
         </div>
       ))}
       <div className="flex gap-2">

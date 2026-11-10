@@ -108,6 +108,13 @@ def build_untailored_projection(candidate: Candidate) -> CVProjection:
     )
 
 
+def _unlabeled_first(bullets: list[TailoredBullet]) -> list[TailoredBullet]:
+    """Stable-partition: bullets with no `project` go above every project
+    group. A project-less bullet placed after a project heading would render
+    as if it belonged to that project (see cv_markdown's grouping)."""
+    return [b for b in bullets if not b.project] + [b for b in bullets if b.project]
+
+
 def assemble_cv(candidate: Candidate, projection: CVProjection) -> AssembledCV:
     """Build the final exportable CV from a Candidate + a CVProjection.
 
@@ -185,7 +192,7 @@ def assemble_cv(candidate: Candidate, projection: CVProjection) -> AssembledCV:
                 position=exp.position,
                 period=exp.period,
                 location=exp.location,
-                bullets=tailored.bullets if tailored is not None else [],
+                bullets=_unlabeled_first(tailored.bullets) if tailored is not None else [],
                 is_gap=False,
                 project_urls=project_urls,
             )

@@ -282,6 +282,9 @@ class Publication(BaseModel):
     venue: str | None = None
     date: str | None = None
     url: str | None = None
+    # Export layout: when True (and `url` is set) the title itself is the
+    # hyperlink and the URL isn't written out.
+    compact_link: bool = False
 
 
 class PortfolioLink(BaseModel):
@@ -296,6 +299,9 @@ class PortfolioLink(BaseModel):
     id: str
     url: str
     description: str | None = None
+    # Export layout: when True (and `description` is set) the description
+    # itself is the hyperlink instead of "description — url".
+    compact_link: bool = False
 
 
 EmploymentType = Literal["Full-time", "Part-time", "Contract", "Freelance", "Internship", "Temporary"]

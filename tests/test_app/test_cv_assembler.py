@@ -540,3 +540,15 @@ def test_assemble_cv_from_an_untailored_projection_still_includes_gap_entries_an
     assert [s.name for s in assembled.skills] == ["Analytical Engine programming"]
     assert assembled.education == candidate.education
     assert assembled.certifications == candidate.certifications
+
+
+def test_unlabeled_bullets_move_above_project_groups():
+    from app.cv_assembler import _unlabeled_first
+    from domain.models import TailoredBullet
+
+    bullets = [
+        TailoredBullet(text="p1", project="A"),
+        TailoredBullet(text="plain"),
+        TailoredBullet(text="p2", project="B"),
+    ]
+    assert [b.text for b in _unlabeled_first(bullets)] == ["plain", "p1", "p2"]

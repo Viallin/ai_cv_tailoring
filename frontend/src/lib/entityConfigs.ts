@@ -25,6 +25,9 @@ export interface FieldSpec {
   name: string;
   label: string;
   multiline?: boolean;
+  // Renders a checkbox instead of a text input. Form values are strings
+  // ("true"/""); toRequestBody converts them to a boolean.
+  checkbox?: boolean;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any -- summarize
@@ -180,6 +183,7 @@ export const ENTITY_CONFIGS: EntityConfig[] = [
       { name: "venue", label: "Venue" },
       { name: "date", label: "Date" },
       { name: "url", label: "URL" },
+      { name: "compact_link", label: "Title is the hyperlink (URL not shown)", checkbox: true },
     ],
     summarize: (item) => {
       const details = joinNonEmpty([item.venue, item.date], ", ");
@@ -194,6 +198,7 @@ export const ENTITY_CONFIGS: EntityConfig[] = [
     fields: [
       { name: "url", label: "URL" },
       { name: "description", label: "Description" },
+      { name: "compact_link", label: "Description is the hyperlink (URL not shown)", checkbox: true },
     ],
     summarize: (item) => (item.description ? `${item.description} — ${item.url}` : item.url),
   },

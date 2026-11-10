@@ -1978,6 +1978,8 @@ export interface components {
             url: string;
             /** Description */
             description?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /** PortfolioLinkCreateRequest */
         PortfolioLinkCreateRequest: {
@@ -1985,6 +1987,8 @@ export interface components {
             url: string;
             /** Description */
             description?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /** PortfolioLinkUpdateRequest */
         PortfolioLinkUpdateRequest: {
@@ -1992,6 +1996,8 @@ export interface components {
             url?: string | null;
             /** Description */
             description?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /**
          * PrintDocument
@@ -2151,6 +2157,8 @@ export interface components {
             date?: string | null;
             /** Url */
             url?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /** PublicationCreateRequest */
         PublicationCreateRequest: {
@@ -2162,6 +2170,8 @@ export interface components {
             date?: string | null;
             /** Url */
             url?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /** PublicationUpdateRequest */
         PublicationUpdateRequest: {
@@ -2173,6 +2183,8 @@ export interface components {
             date?: string | null;
             /** Url */
             url?: string | null;
+            /** Compact Link */
+            compact_link?: boolean;
         };
         /** RecheckJobRequest */
         RecheckJobRequest: {
